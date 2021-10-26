@@ -41,6 +41,12 @@ $is_setup_complete = $this->is_setup_complete;
 
 /**
  *
+ * @var bool
+ */
+$is_channel_supported = $this->is_channel_supported;
+
+/**
+ *
  * @var string
  */
 $get_started_url = $this->get_started_url;
@@ -81,6 +87,13 @@ if ( ! CouponSyncer::is_coupon_supported( $coupon ) ) {
     $input_disabled = true;
     $input_description = __( 
         $coupon->get_virtual() ? 'This coupon cannot be shown on public channel because it is hidden from your store.' : 'This coupon cannot be shown because the coupon restrictions are not supported to share in Google channel.',
+        'google-listings-and-ads' );
+} else if (! $is_channel_supported ) {
+    $channel_visibility = ChannelVisibility::DONT_SYNC_AND_SHOW;
+    $show_status = false;
+    $input_disabled = true;
+    $input_description = __(
+        'This coupon visibility channel has not been supported in your store base country yet.',
         'google-listings-and-ads' );
 }
 
